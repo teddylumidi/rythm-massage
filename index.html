@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Rythm Mobile Massage Therapy</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -15,7 +15,7 @@
     --deep: #0e0a08;
     --warm-dark: #1a1208;
     --mid: #2c1f12;
-    --rose: #b87a6a;
+    --accent-green: #3b4d36; /* Adapted from screenshot for dark theme */
   }
 
   html { scroll-behavior: smooth; }
@@ -39,6 +39,108 @@
     opacity: 0.4;
   }
 
+  /* HEADER & NAVIGATION */
+  .site-header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5%;
+    background: rgba(14, 10, 8, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: 2000;
+    border-bottom: 1px solid rgba(201, 169, 110, 0.1);
+    transition: transform 0.3s ease, background 0.3s ease;
+  }
+
+  .site-header.nav-active {
+    background: rgba(14, 10, 8, 0.98);
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    color: var(--gold-light);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    z-index: 2002;
+  }
+
+  .logo svg {
+    width: 24px;
+    height: 24px;
+    fill: var(--gold);
+  }
+
+  .nav-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    color: var(--cream);
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: color 0.3s;
+    position: relative;
+  }
+
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px; left: 0;
+    width: 0%; height: 1px;
+    background: var(--gold);
+    transition: width 0.3s ease;
+  }
+
+  .nav-links a:hover { color: var(--gold); }
+  .nav-links a:hover::after { width: 100%; }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    color: var(--cream);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .social-icon.wa { background: #25d366; color: #fff; box-shadow: 0 2px 10px rgba(37, 211, 102, 0.3); }
+  .social-icon.tg { background: #229ed9; color: #fff; box-shadow: 0 2px 10px rgba(34, 158, 217, 0.3); }
+  .social-icon:hover { transform: scale(1.1); box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+
+  .menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--gold);
+    font-size: 1.8rem;
+    cursor: pointer;
+    z-index: 2002;
+  }
+
   /* HERO */
   .hero {
     min-height: 100vh;
@@ -47,7 +149,7 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 3rem 1.5rem;
+    padding: 6rem 1.5rem 3rem; /* padding-top accounts for header */
     position: relative;
     overflow: hidden;
     background: url('https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=1600&q=80') center center / cover no-repeat;
@@ -72,6 +174,8 @@
     margin-bottom: 2rem;
     opacity: 0;
     animation: fadeUp 1s 0.2s forwards;
+    position: relative;
+    z-index: 1;
   }
 
   .hero-title {
@@ -84,6 +188,8 @@
     margin-bottom: 0.5rem;
     opacity: 0;
     animation: fadeUp 1s 0.4s forwards;
+    position: relative;
+    z-index: 1;
   }
 
   .hero-title em {
@@ -94,7 +200,7 @@
   .hero-tagline {
     font-family: 'Cormorant Garamond', serif;
     font-style: italic;
-    font-size: clamp(1rem, 2.5vw, 1.4rem);
+    font-size: clamp(1.2rem, 2.5vw, 1.8rem);
     color: var(--gold-light);
     opacity: 0.75;
     margin-top: 1rem;
@@ -102,6 +208,8 @@
     letter-spacing: 0.02em;
     opacity: 0;
     animation: fadeUp 1s 0.6s forwards;
+    position: relative;
+    z-index: 1;
   }
 
   .divider {
@@ -112,6 +220,8 @@
     width: min(320px, 90%);
     opacity: 0;
     animation: fadeUp 1s 0.7s forwards;
+    position: relative;
+    z-index: 1;
   }
 
   .divider::before, .divider::after {
@@ -136,6 +246,8 @@
     justify-content: center;
     opacity: 0;
     animation: fadeUp 1s 0.9s forwards;
+    position: relative;
+    z-index: 1;
   }
 
   .btn {
@@ -143,16 +255,17 @@
     align-items: center;
     gap: 0.7rem;
     padding: 1rem 2rem;
-    border-radius: 0;
+    border-radius: 30px;
     font-family: 'Jost', sans-serif;
-    font-weight: 300;
+    font-weight: 400;
     font-size: 0.82rem;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.15em;
     text-transform: uppercase;
     text-decoration: none;
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
+    cursor: pointer;
   }
 
   .btn::before {
@@ -172,8 +285,7 @@
   .btn-whatsapp::before { background: #25d366; }
   .btn-whatsapp:hover { color: var(--deep); }
   .btn-whatsapp:hover::before { opacity: 1; }
-  .btn-whatsapp svg, .btn-telegram svg { position: relative; z-index: 1; }
-  .btn-whatsapp span, .btn-telegram span { position: relative; z-index: 1; }
+  .btn-whatsapp svg, .btn-telegram svg, .btn-whatsapp span, .btn-telegram span, .btn-outline span { position: relative; z-index: 1; }
 
   .btn-telegram {
     background: transparent;
@@ -185,11 +297,46 @@
   .btn-telegram:hover { color: #fff; }
   .btn-telegram:hover::before { opacity: 1; }
 
-  /* SERVICES */
+  .btn-outline {
+    background: transparent;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+  }
+  .btn-outline::before { background: var(--gold); }
+  .btn-outline:hover { color: var(--deep); }
+  .btn-outline:hover::before { opacity: 1; }
+
+  .btn-filled {
+    background: var(--gold);
+    color: var(--deep);
+    border: 1px solid var(--gold);
+  }
+  .btn-filled:hover {
+    background: var(--gold-light);
+    border-color: var(--gold-light);
+  }
+  
+  .btn-white {
+    background: var(--cream);
+    color: var(--deep);
+    border: 1px solid var(--cream);
+  }
+  .btn-white:hover {
+    background: transparent;
+    color: var(--cream);
+  }
+
+  /* SECTIONS GENERAL */
   .section {
     padding: 6rem 1.5rem;
-    max-width: 1100px;
+    max-width: 1200px;
     margin: 0 auto;
+    scroll-margin-top: 80px; /* Offset for sticky header */
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 4rem;
   }
 
   .section-label {
@@ -204,17 +351,120 @@
   .section-title {
     font-family: 'Cormorant Garamond', serif;
     font-weight: 300;
-    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
     line-height: 1.1;
-    margin-bottom: 3rem;
     color: var(--cream);
   }
 
   .section-title em { font-style: italic; color: var(--gold); }
 
+  /* PRICING SECTION */
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+    align-items: center;
+  }
+
+  .pricing-card {
+    background: var(--warm-dark);
+    border: 1px solid rgba(201,169,110,0.15);
+    border-radius: 12px;
+    padding: 3.5rem 2rem;
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .pricing-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  }
+
+  .pricing-card.popular {
+    background: var(--accent-green);
+    border-color: rgba(255,255,255,0.1);
+    transform: scale(1.05);
+    z-index: 10;
+    padding: 4.5rem 2rem;
+  }
+
+  .pricing-card.popular:hover {
+    transform: scale(1.05) translateY(-5px);
+  }
+
+  .popular-badge {
+    position: absolute;
+    top: 1.5rem; left: 50%;
+    transform: translateX(-50%);
+    background: var(--gold);
+    color: var(--deep);
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    text-transform: uppercase;
+  }
+
+  .pricing-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    color: var(--cream);
+    margin-bottom: 1.5rem;
+  }
+
+  .pricing-time {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 0.4rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .pricing-time .number {
+    font-size: 4rem;
+    font-weight: 300;
+    color: var(--gold-light);
+    line-height: 1;
+  }
+  
+  .pricing-time .text-custom {
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: var(--gold-light);
+    line-height: 1;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .pricing-time .mins {
+    font-size: 1.2rem;
+    color: rgba(245,239,230,0.6);
+  }
+
+  .pricing-card.popular .pricing-time .number { color: #fff; }
+  .pricing-card.popular .pricing-time .mins { color: rgba(255,255,255,0.8); }
+
+  .pricing-desc {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: rgba(245,239,230,0.6);
+    margin-bottom: 2.5rem;
+    min-height: 3em;
+    flex-grow: 1;
+  }
+
+  .pricing-card.popular .pricing-desc { color: rgba(255,255,255,0.8); }
+
+  /* SERVICES */
   .services-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 1.5px;
     background: rgba(201,169,110,0.15);
   }
@@ -225,6 +475,8 @@
     position: relative;
     overflow: hidden;
     transition: background 0.4s;
+    display: flex;
+    flex-direction: column;
   }
 
   .service-card::after {
@@ -249,36 +501,87 @@
 
   .service-name {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     font-weight: 400;
     color: var(--gold-light);
     margin-bottom: 0.7rem;
   }
 
   .service-desc {
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     line-height: 1.8;
-    color: rgba(245,239,230,0.55);
+    color: rgba(245,239,230,0.6);
     font-weight: 300;
+    flex-grow: 1;
   }
 
-  /* BANNER */
-  .banner {
+  .card-actions {
+    display: flex;
+    gap: 0.8rem;
+    margin-top: 1.5rem;
+  }
+
+  .pricing-card .card-actions {
+    justify-content: center;
+    margin-top: 0.5rem;
+  }
+
+  .service-card .card-actions {
+    justify-content: flex-start;
+    margin-top: auto;
+  }
+
+  .pricing-action-text {
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: block;
+    margin-top: auto;
+  }
+
+  .pricing-card.popular .pricing-action-text {
+    color: #fff;
+  }
+
+  .service-img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    display: block;
+    margin: -2.5rem -2.5rem 1.5rem;
+    width: calc(100% + 5rem);
+    filter: brightness(0.82) saturate(0.9);
+    transition: filter 0.4s, transform 0.5s;
+  }
+  
+  .service-card:hover .service-img { filter: brightness(0.95) saturate(1.1); transform: scale(1.03); }
+
+  /* ABOUT STRIP */
+  .about-strip {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 480px;
+    scroll-margin-top: 80px;
+  }
+  .about-img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: brightness(0.75) saturate(0.85);
+  }
+  .about-text {
     background: var(--mid);
-    border-top: 1px solid rgba(201,169,110,0.2);
-    border-bottom: 1px solid rgba(201,169,110,0.2);
-    padding: 4rem 1.5rem;
-    text-align: center;
+    padding: 4rem 10%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
-
-  .banner-text {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: clamp(1.4rem, 4vw, 2.5rem);
-    color: var(--gold-light);
-    line-height: 1.4;
-    max-width: 700px;
-    margin: 0 auto 2.5rem;
+  .about-text p {
+    font-size: 0.95rem;
+    line-height: 1.9;
+    color: rgba(245,239,230,0.7);
+    margin-top: 1rem;
   }
 
   /* CONTACT SECTION */
@@ -287,6 +590,7 @@
     text-align: center;
     background: url('https://images.unsplash.com/photo-1507652313519-d4e9174996dd?w=1400&q=80') center / cover no-repeat;
     position: relative;
+    scroll-margin-top: 80px;
   }
   .contact-section::before {
     content: '';
@@ -294,16 +598,11 @@
     inset: 0;
     background: rgba(10,7,5,0.91);
   }
-  .contact-inner { position: relative; z-index: 1; }
-
-  .contact-inner {
-    max-width: 600px;
-    margin: 0 auto;
-  }
+  .contact-inner { position: relative; z-index: 1; max-width: 600px; margin: 0 auto; }
 
   .phone-display {
     font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
     font-weight: 300;
     color: var(--gold);
     letter-spacing: 0.1em;
@@ -316,10 +615,11 @@
     gap: 1rem;
     background: rgba(201,169,110,0.07);
     border: 1px solid rgba(201,169,110,0.18);
-    padding: 1.1rem 1.4rem;
+    padding: 1.2rem 1.5rem;
     max-width: 420px;
     margin: 0 auto;
     text-align: left;
+    border-radius: 4px;
   }
   .loc-icon {
     color: var(--gold);
@@ -327,7 +627,7 @@
     margin-top: 2px;
   }
   .loc-title {
-    font-size: 0.68rem;
+    font-size: 0.7rem;
     letter-spacing: 0.3em;
     text-transform: uppercase;
     color: var(--gold);
@@ -335,31 +635,21 @@
     font-weight: 300;
   }
   .loc-text {
-    font-size: 0.9rem;
-    color: rgba(245,239,230,0.75);
+    font-size: 0.95rem;
+    color: rgba(245,239,230,0.8);
     line-height: 1.5;
-  }
-
-  .contact-note {
-    font-size: 0.78rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: rgba(245,239,230,0.35);
-    margin-top: 2rem;
-    font-weight: 200;
   }
 
   /* FOOTER */
   footer {
     border-top: 1px solid rgba(201,169,110,0.15);
-    padding: 2rem 1.5rem;
+    padding: 2.5rem 1.5rem;
     text-align: center;
-    font-size: 0.72rem;
+    font-size: 0.75rem;
     letter-spacing: 0.15em;
-    color: rgba(245,239,230,0.25);
+    color: rgba(245,239,230,0.3);
     font-weight: 200;
   }
-
   footer strong { color: var(--gold); font-weight: 300; }
 
   /* Floating contact bar */
@@ -383,69 +673,10 @@
   }
 
   .float-btn:hover { transform: scale(1.1); box-shadow: 0 6px 28px rgba(0,0,0,0.6); }
-
   .float-wa { background: #25d366; }
   .float-tg { background: #229ed9; }
 
-  /* Service card images */
-  .service-img {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-    display: block;
-    margin: -2.5rem -2.5rem 1.5rem;
-    width: calc(100% + 5rem);
-    filter: brightness(0.82) saturate(0.9);
-    transition: filter 0.4s, transform 0.5s;
-  }
-  .service-card:hover .service-img { filter: brightness(0.95) saturate(1.1); transform: scale(1.03); }
-  .service-card { overflow: hidden; }
-
-  /* About strip */
-  .about-strip {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    min-height: 480px;
-  }
-  .about-img {
-    width: 100%; height: 100%;
-    object-fit: cover;
-    display: block;
-    filter: brightness(0.75) saturate(0.85);
-  }
-  .about-text {
-    background: var(--mid);
-    padding: 4rem 3rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-  .about-text p {
-    font-size: 0.88rem;
-    line-height: 2;
-    color: rgba(245,239,230,0.6);
-    margin-top: 1rem;
-  }
-
-  /* Banner bg */
-  .banner {
-    background: url('https://images.unsplash.com/photo-1515377905703-c4788e51af15?w=1400&q=80') center / cover no-repeat;
-    position: relative;
-  }
-  .banner::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: rgba(14,10,8,0.88);
-  }
-  .banner > * { position: relative; z-index: 1; }
-
-  @media (max-width: 700px) {
-    .about-strip { grid-template-columns: 1fr; }
-    .about-img { height: 260px; }
-    .about-text { padding: 2.5rem 1.5rem; }
-  }
-
+  /* Animations */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(24px); }
     to { opacity: 1; transform: translateY(0); }
@@ -458,98 +689,291 @@
   }
   .scroll-reveal.visible { opacity: 1; transform: none; }
 
-  @media (max-width: 600px) {
+  /* Mobile Responsive Updates */
+  @media (max-width: 900px) {
+    .nav-wrapper {
+      position: absolute;
+      top: 80px;
+      left: 0;
+      width: 100%;
+      background: rgba(14, 10, 8, 0.98);
+      flex-direction: column;
+      gap: 2rem;
+      padding: 0;
+      height: 0;
+      overflow: hidden;
+      transition: height 0.4s ease, padding 0.4s ease;
+      border-bottom: 1px solid rgba(201, 169, 110, 0.1);
+    }
+
+    .site-header.nav-active .nav-wrapper {
+      height: 100vh; /* Cover screen for mobile menu */
+      padding: 3rem 0;
+    }
+
+    .nav-links {
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .nav-links a { font-size: 1.2rem; }
+
+    .menu-toggle { display: block; }
+    
+    .pricing-grid { grid-template-columns: 1fr; max-width: 450px; margin: 0 auto; }
+    .pricing-card.popular { transform: scale(1); padding: 3.5rem 2rem; }
+    .pricing-card.popular:hover { transform: translateY(-5px); }
+  }
+
+  @media (max-width: 700px) {
+    .about-strip { grid-template-columns: 1fr; }
+    .about-img { height: 260px; }
+    .about-text { padding: 3rem 1.5rem; }
     .btn { padding: 0.85rem 1.5rem; font-size: 0.75rem; }
+    .site-header { padding: 0 1.5rem; }
   }
 </style>
 </head>
 <body>
 
+<!-- HEADER & NAV -->
+<header class="site-header" id="header">
+  <a href="#" class="logo">
+    <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+    Rythm
+  </a>
+  
+  <div class="nav-wrapper" id="nav-wrapper">
+    <nav class="nav-links">
+      <a href="#hero" class="nav-link">Home</a>
+      <a href="#pricing" class="nav-link">Pricing</a>
+      <a href="#services" class="nav-link">Services</a>
+      <a href="#about" class="nav-link">About</a>
+    </nav>
+    <div class="header-actions">
+      <a href="https://wa.me/+211922651912" target="_blank" class="social-icon wa" title="WhatsApp">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      </a>
+      <a href="https://t.me/+211922651912" target="_blank" class="social-icon tg" title="Telegram">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <button class="menu-toggle" id="menu-toggle">☰</button>
+</header>
+
 <!-- Floating CTA Bar -->
 <div class="float-bar">
   <a href="https://wa.me/+211922651912" target="_blank" class="float-btn float-wa" title="WhatsApp">
-    <svg width="26" height="26" viewBox="0 0 24 24" fill="white">
-      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-    </svg>
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
   </a>
   <a href="https://t.me/+211922651912" target="_blank" class="float-btn float-tg" title="Telegram">
-    <svg width="26" height="26" viewBox="0 0 24 24" fill="white">
-      <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
-    </svg>
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
   </a>
 </div>
 
 <!-- HERO -->
-<section class="hero">
+<section id="hero" class="hero">
   <p class="hero-badge">✦ Juba's Premier Mobile Experience ✦</p>
   <h1 class="hero-title">Rythm <em>Mobile</em><br>Massage Therapy</h1>
-  <p class="hero-tagline">Your Comfort, Our Mission</p>
+  <p class="hero-tagline">Your Comfort, Our Mission.</p>
   <div class="divider"><div class="divider-gem"></div></div>
   <div class="cta-group">
-    <a href="https://wa.me/+211922651912" target="_blank" class="btn btn-whatsapp">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-      </svg>
-      <span>WhatsApp Us</span>
+    <a href="#pricing" class="btn btn-filled">
+      <span>View Pricing</span>
     </a>
-    <a href="https://t.me/+211922651912" target="_blank" class="btn btn-telegram">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
-      </svg>
-      <span>Telegram Us</span>
+    <a href="#services" class="btn btn-outline">
+      <span>Our Services</span>
     </a>
   </div>
 </section>
 
+<!-- PRICING SECTION -->
+<section id="pricing" class="section">
+  <div class="section-header scroll-reveal">
+    <p class="section-label">Investment</p>
+    <h2 class="section-title">Simple, <em>Transparent</em> Pricing</h2>
+    <div class="divider"><div class="divider-gem"></div></div>
+  </div>
+
+  <div class="pricing-grid scroll-reveal">
+    <!-- Card 1 -->
+    <div class="pricing-card">
+      <h3 class="pricing-name">Express Relief</h3>
+      <div class="pricing-time">
+        <span class="number">60</span>
+        <span class="mins">mins</span>
+      </div>
+      <p class="pricing-desc">Perfect for targeted relief of specific tension areas.</p>
+      <span class="pricing-action-text">Book 60 Mins</span>
+      <div class="card-actions">
+        <a href="https://wa.me/+211922651912?text=I'd%20like%20to%20book%20a%2060%20min%20massage" target="_blank" class="social-icon wa" title="Book via WhatsApp">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        </a>
+        <a href="https://t.me/+211922651912" target="_blank" class="social-icon tg" title="Book via Telegram">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Card 2 (Popular) -->
+    <div class="pricing-card popular">
+      <span class="popular-badge">Most Popular</span>
+      <h3 class="pricing-name">Full Body Reset</h3>
+      <div class="pricing-time">
+        <span class="number">90</span>
+        <span class="mins">mins</span>
+      </div>
+      <p class="pricing-desc">Our standard full-body session for deep relaxation.</p>
+      <span class="pricing-action-text">Book 90 Mins</span>
+      <div class="card-actions">
+        <a href="https://wa.me/+211922651912?text=I'd%20like%20to%20book%20a%2090%20min%20massage" target="_blank" class="social-icon wa" title="Book via WhatsApp">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        </a>
+        <a href="https://t.me/+211922651912" target="_blank" class="social-icon tg" title="Book via Telegram">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="pricing-card">
+      <h3 class="pricing-name">Ultimate Unwind</h3>
+      <div class="pricing-time">
+        <span class="number">120</span>
+        <span class="mins">mins</span>
+      </div>
+      <p class="pricing-desc">An extended, luxurious session for complete rejuvenation.</p>
+      <span class="pricing-action-text">Book 120 Mins</span>
+      <div class="card-actions">
+        <a href="https://wa.me/+211922651912?text=I'd%20like%20to%20book%20a%20120%20min%20massage" target="_blank" class="social-icon wa" title="Book via WhatsApp">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        </a>
+        <a href="https://t.me/+211922651912" target="_blank" class="social-icon tg" title="Book via Telegram">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Card 4 (VIP) -->
+    <div class="pricing-card">
+      <h3 class="pricing-name">VIP HookUp</h3>
+      <div class="pricing-time">
+        <span class="text-custom">CUSTOM</span>
+      </div>
+      <p class="pricing-desc">Exclusive, discreet companionship and relaxation services tailored to our most discerning clients.</p>
+      <span class="pricing-action-text">Inquire Privately</span>
+      <div class="card-actions">
+        <a href="https://wa.me/+211922651912?text=I'd%20like%20to%20inquire%20privately%20about%20the%20VIP%20HookUp%20services" target="_blank" class="social-icon wa" title="Inquire via WhatsApp">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        </a>
+        <a href="https://t.me/+211922651912" target="_blank" class="social-icon tg" title="Inquire via Telegram">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- SERVICES -->
-<section class="section">
-  <div class="scroll-reveal">
+<section id="services" class="section" style="padding-top: 2rem;">
+  <div class="section-header scroll-reveal">
     <p class="section-label">What We Offer</p>
     <h2 class="section-title">Experiences crafted<br>for your <em>pleasure</em></h2>
   </div>
   <div class="services-grid scroll-reveal">
     <div class="service-card">
-      <img src="https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?w=600&q=80" alt="Deep tissue massage" class="service-img">
+      <img src="images/service1.jpg" alt="Deep tissue massage" class="service-img">
       <span class="service-icon">🌿</span>
       <h3 class="service-name">Deep Tissue Massage</h3>
-      <p class="service-desc">Targeted pressure techniques that release chronic tension, restore mobility, and melt away the stress of everyday life — delivered right to your door.</p>
+      <p class="service-desc">Targeted pressure techniques that release chronic tension, restore mobility, and melt away the stress of everyday life.</p>
+      <div class="card-actions">
+        <a href="https://wa.me/+211922651912?text=I'd%20like%20to%20book%20a%20Deep%20Tissue%20Massage" target="_blank" class="social-icon wa" title="Book via WhatsApp">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        </a>
+        <a href="https://t.me/+211922651912" target="_blank" class="social-icon tg" title="Book via Telegram">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+        </a>
+      </div>
     </div>
     <div class="service-card">
-      <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=600&q=80" alt="Spa relaxation" class="service-img">
+      <img src="images/service2.jpg" alt="Spa relaxation" class="service-img">
       <span class="service-icon">🕯️</span>
       <h3 class="service-name">Spa & Relaxation</h3>
-      <p class="service-desc">A full sensory retreat with aromatic oils, warm towels, and ambient therapies that transport you to a state of blissful calm, wherever you are.</p>
+      <p class="service-desc">A full sensory retreat with aromatic oils, warm towels, and ambient therapies that transport you to a state of blissful calm.</p>
+      <div class="card-actions">
+        <a href="https://wa.me/+211922651912?text=I'd%20like%20to%20book%20a%20Spa%20&%20Relaxation%20session" target="_blank" class="social-icon wa" title="Book via WhatsApp">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        </a>
+        <a href="https://t.me/+211922651912" target="_blank" class="social-icon tg" title="Book via Telegram">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+        </a>
+      </div>
     </div>
     <div class="service-card">
-      <img src="https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=600&q=80" alt="Hot stone massage" class="service-img">
+      <img src="images/service3.jpg" alt="Hot stone massage" class="service-img">
       <span class="service-icon">💆</span>
       <h3 class="service-name">Swedish & Hot Stone</h3>
-      <p class="service-desc">Smooth, gliding strokes paired with heat therapy to improve circulation, ease muscle tension, and leave you feeling renewed from within.</p>
+      <p class="service-desc">Smooth, gliding strokes paired with heat therapy to improve circulation, ease muscle tension, and leave you feeling renewed.</p>
+      <div class="card-actions">
+        <a href="https://wa.me/+211922651912?text=I'd%20like%20to%20book%20a%20Swedish%20and%20Hot%20Stone%20massage" target="_blank" class="social-icon wa" title="Book via WhatsApp">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        </a>
+        <a href="https://t.me/+211922651912" target="_blank" class="social-icon tg" title="Book via Telegram">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+        </a>
+      </div>
     </div>
     <div class="service-card">
-      <img src="./images/service4.jpg" alt="Couples massage" class="service-img">
+      <img src="images/service4.jpg" alt="Couples massage" class="service-img">
       <span class="service-icon">🌹</span>
       <h3 class="service-name">Couples & Companion</h3>
-      <p class="service-desc">Intimate, personalised sessions for two — a shared journey of relaxation and connection in the privacy and comfort of your own space.</p>
+      <p class="service-desc">Intimate, personalised sessions for two — a shared journey of relaxation and connection in the privacy of your own space.</p>
+      <div class="card-actions">
+        <a href="https://wa.me/+211922651912?text=I'd%20like%20to%20book%20a%20Couples%20&%20Companion%20massage" target="_blank" class="social-icon wa" title="Book via WhatsApp">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        </a>
+        <a href="https://t.me/+211922651912" target="_blank" class="social-icon tg" title="Book via Telegram">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+        </a>
+      </div>
     </div>
     <div class="service-card">
-      <img src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?w=600&q=80" alt="VIP experience" class="service-img">
+      <img src="images/service5.jpg" alt="VIP experience" class="service-img">
       <span class="service-icon">✨</span>
-      <h3 class="service-name">VIP Hookup Experience</h3>
-      <p class="service-desc">Exclusive, discreet companionship and relaxation services tailored to the most discerning clients. Reach out privately to discuss your preferences.</p>
+      <h3 class="service-name">VIP HookUp</h3>
+      <p class="service-desc">Exclusive, discreet companionship and relaxation services tailored to the most discerning clients. Reach out privately.</p>
+      <div class="card-actions">
+        <a href="https://wa.me/+211922651912?text=I'd%20like%20to%20inquire%20about%20the%20VIP%20HookUp%20services" target="_blank" class="social-icon wa" title="Inquire via WhatsApp">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        </a>
+        <a href="https://t.me/+211922651912" target="_blank" class="social-icon tg" title="Inquire via Telegram">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+        </a>
+      </div>
     </div>
     <div class="service-card">
-      <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&q=80" alt="Mobile massage" class="service-img">
+      <img src="images/service6.jpg" alt="Mobile massage" class="service-img">
       <span class="service-icon">🚗</span>
       <h3 class="service-name">Mobile & In-Call</h3>
       <p class="service-desc">We come to your home, hotel, or Airbnb across Juba — fully equipped, fully professional. No travel needed on your end.</p>
+      <div class="card-actions">
+        <a href="https://wa.me/+211922651912?text=I'd%20like%20to%20book%20a%20Mobile%20&%20In-Call%20massage" target="_blank" class="social-icon wa" title="Book via WhatsApp">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        </a>
+        <a href="https://t.me/+211922651912" target="_blank" class="social-icon tg" title="Book via Telegram">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+        </a>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- ABOUT STRIP -->
-<div class="about-strip scroll-reveal">
-  <img src="https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?w=900&q=80" alt="Therapist at work" class="about-img">
+<div id="about" class="about-strip scroll-reveal">
+  <img src="images/work.jpg" alt="Therapist at work" class="about-img">
   <div class="about-text">
     <p class="section-label">About Rythm</p>
     <h2 class="section-title" style="font-size:clamp(1.6rem,4vw,2.8rem);">Juba's most <em>trusted</em> mobile therapists</h2>
@@ -558,27 +982,14 @@
   </div>
 </div>
 
-<!-- BANNER QUOTE -->
-<div class="banner scroll-reveal">
-  <p class="banner-text">"We don't just offer a service — we craft an experience that lingers long after we leave."</p>
-  <div class="cta-group">
-    <a href="https://wa.me/+211922651912" target="_blank" class="btn btn-whatsapp">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-      </svg>
-      <span>Book Now</span>
-    </a>
-  </div>
-</div>
-
 <!-- CONTACT -->
-<section class="contact-section">
+<section id="contact" class="contact-section">
   <div class="contact-inner scroll-reveal">
     <p class="section-label">Get In Touch</p>
     <h2 class="section-title">Ready to <em>unwind?</em></h2>
-    <p style="font-size:0.88rem; color:rgba(245,239,230,0.5); line-height:1.8; margin-bottom:1rem;">Available across Juba — hotels, homes & Airbnbs.<br>Reach us on your preferred platform for fast, discreet booking.</p>
+    <p style="font-size:0.95rem; color:rgba(245,239,230,0.7); line-height:1.8; margin-bottom:1rem; margin-top: 1rem;">Available across Juba — hotels, homes & Airbnbs.<br>Reach us on your preferred platform for fast, discreet booking.</p>
     <p class="phone-display">+211 922 651 912</p>
-    <div class="cta-group" style="justify-content:center;">
+    <div class="cta-group" style="justify-content:center; margin-bottom: 2.5rem;">
       <a href="https://wa.me/+211922651912" target="_blank" class="btn btn-whatsapp">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
           <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
@@ -607,10 +1018,10 @@
       </div>
       <div>
         <p class="loc-title">Call / Text</p>
-        <p class="loc-text"><a href="tel:0922651912" style="color:var(--gold-light);text-decoration:none;">0922651912</a></p>
+        <p class="loc-text"><a href="tel:0922651912" style="color:rgba(245,239,230,0.8);text-decoration:none;">0922651912</a></p>
       </div>
     </div>
-    <p class="contact-note" style="margin-top:2rem;">Available 24 hours · 7 days a week · All of Juba</p>
+    <p class="section-label" style="margin-top:3rem; letter-spacing: 0.2em; color: rgba(245,239,230,0.4);">Available 24 hours · 7 days a week · All of Juba</p>
   </div>
 </section>
 
@@ -619,10 +1030,34 @@
 </footer>
 
 <script>
+  // Scroll reveal animation
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
   }, { threshold: 0.15 });
   document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
+
+  // Mobile Menu Toggle logic
+  const menuToggle = document.getElementById('menu-toggle');
+  const header = document.getElementById('header');
+  const navLinks = document.querySelectorAll('.nav-link');
+
+  menuToggle.addEventListener('click', () => {
+    header.classList.toggle('nav-active');
+    // Change hamburger to X when open
+    if(header.classList.contains('nav-active')) {
+      menuToggle.innerHTML = '✕';
+    } else {
+      menuToggle.innerHTML = '☰';
+    }
+  });
+
+  // Close menu when a link is clicked
+  navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      header.classList.remove('nav-active');
+      menuToggle.innerHTML = '☰';
+    });
+  });
 </script>
 </body>
 </html>
